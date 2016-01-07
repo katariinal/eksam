@@ -1,4 +1,4 @@
-<?php 
+ï»¿<?php 
 
 class User{
 	
@@ -11,7 +11,7 @@ class User{
 
 	function logInUser($email, $hash){
         
-        // GLOBALS saab kätte kõik muutujad mis kasutusel
+        // GLOBALS saab kÃ¤tte kÃµik muutujad mis kasutusel
        
         
         $stmt = $this->connection->prepare("SELECT id, email FROM user_sample WHERE email=? AND password=?");

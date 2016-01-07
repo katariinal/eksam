@@ -16,8 +16,8 @@
     }
     
     //muutuja väärtused
-    $car_plate = $mark = $year = $m = "";
-    $car_plate_error = $mark_error = $year_error = "";
+    $car_plate = $mark = $year = $person_id = $m = "";
+    $car_plate_error = $mark_error = $year_error = $person_id_error = "";
     //echo $_SESSION['logged_in_user_id'];
     
 
@@ -32,22 +32,36 @@
        
 				$car_plate = cleanInput($_POST["car_plate"]);
 			}
-            if ( empty($_POST["color"]) ) {
-                   $color_error = "Auto värv on kohustuslik!";
+            if ( empty($_POST["mark"]) ) {
+                   $mark_error = "Mark";
                 }else{
        
-				$color = cleanInput($_POST["color"]);
+				$mark = cleanInput($_POST["mark"]);
+			}
+			if ( empty($_POST["year"]) ) {
+                   $year_error = "Aasta";
+                }else{
+       
+				$year = cleanInput($_POST["year"]);
+			}
+			if ( empty($_POST["person_id"]) ) {
+                   $person_id_error = "Isikukood";
+                }else{
+       
+				$person_id = cleanInput($_POST["person_id"]);
 			}
             
             //erroreid ei olnud, käivitan funktsiooni, mis sisaldab andmebaasi
             
-            if($car_plate_error == "" && $color_error == ""){
+            if($car_plate_error == "" && $mark_error == "" && $year_error == "" && $person_id_error == ""){
                 //m on message, mille saadame function.php failist
-                $m = createCarPlate($car_plate, $color);
+                $m = createCarPlate($car_plate, $mark, $year, $person_id);
                 if($m != ""){
                     //teeme vormi tühjaks
                     $car_plate = "";
-                    $color = "";
+                    $mark = "";
+					$year = "";
+					$person_id = "";
                 }
             }
             
@@ -77,7 +91,11 @@ Tere, <?=$_SESSION['logged_in_user_email'];?> <br><a href="?logout=1">Logi välj
   	<input id="mark" name="mark" type="text" value="<?=$mark; ?>"> <?=$mark_error; ?><br><br>
 	<label> Väljalaskeaasta </label>
   	<input id="year" name="year" type="text" value="<?=$year; ?>"> <?=$year_error; ?><br><br>
+	<label> Isikukood</label>
+  	<input id="person_id" name="person_id" type="text" value="<?=$person_id; ?>"> <?=$person_id_error; ?><br><br>
 	
   	<input type="submit" name="add_car_plate" value="Lisa">
     <p style="color:green;"><?=$m;?></p>
   </form>
+  
+  <p><a href="table.php">Andmed</a></p>
